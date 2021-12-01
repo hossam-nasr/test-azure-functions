@@ -1,0 +1,11 @@
+{
+  "bindings": [
+    {
+      "name": "myQueueItem",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "test-queue",
+      "connection": "hossamteststorageacc_STORAGE"
+    }
+  ]
+}
