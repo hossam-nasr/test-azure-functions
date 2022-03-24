@@ -1,9 +1,15 @@
-import { AzureFunction, Context, HttpRequest, HttpResponseApi } from "@azure/functions"
+import { HttpRequest, AzureFunction, Context, HttpResponseApi } from "@azure/functions"
+import { registerHook } from '@azure/functions-worker'
 
-export type ActualContext = Context & { res: HttpResponseApi }
+const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+    //context.res = context.res as HttpResponseApi;
+    registerHook("dinner", () => {
+        console.log("hello");
+    });
 
-const httpTrigger: AzureFunction = async function (context: Context & { res: HttpResponseApi}, req: HttpRequest): Promise<void> {
-    context.res.status(200);
+    context.res = {
+        status: 400
+    }
 }; 
 
 export default httpTrigger;
