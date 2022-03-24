@@ -17,7 +17,7 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "durable-functions": "file:../js-sdk",
+    "durable-functions": "file:../../durable/js-sdk",
     "moment": "^2.29.1"
   }
 }
