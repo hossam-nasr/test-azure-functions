@@ -1,0 +1,8 @@
+POST http://localhost:7071/runtime/webhooks/durabletask/instances/f73a3598c2934ffd80ebb562145bbfce/raiseEvent/approval HTTP/1.1
+Content-Type:application/json
+
+{
+    "taskHub":"hub3",
+    "connection":"Storage",
+    "code":"JUYE6kHWyaziDTIc1J3/7JR/D0DnaAgmcMQDxbDim4SxPoebNX/hCQ=="
+}

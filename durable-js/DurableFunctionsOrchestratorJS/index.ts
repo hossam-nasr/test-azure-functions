@@ -15,15 +15,23 @@ import * as moment from "moment"
 const orchestrator = df.orchestrator(function* (context) {
     const outputs = [];
 
-    // Replace "Hello" with the name of your Durable Activity Function.
-    outputs.push(yield context.df.callActivity("Hello", "Tokyo"));
-    outputs.push(yield context.df.callActivity("Hello", "Seattle"));
+    // // Replace "Hello" with the name of your Durable Activity Function.
+    // outputs.push(yield context.df.callActivity("Hello", "Tokyo"));
+    // outputs.push(yield context.df.callActivity("Hello", "Seattle"));
+
+    outputs.push(yield context.df.callActivity("Hello", "Requesting approval"));
 
     const currentTime = context.df.currentUtcDateTime;
-    const myTimer = context.df.createTimer(moment.utc(currentTime).add(5, 'm').toDate());
-    yield myTimer;
+    const myTimer = context.df.createTimer(moment.utc(currentTime).add(10, 'd').toDate());
+    const approvalEvent =  context.df.waitForExternalEvent("approval");
 
-    outputs.push(yield context.df.callActivity("Hello", "London"));
+    if (approvalEvent === (yield context.df.Task.any([approvalEvent, myTimer]))) {
+        myTimer.cancel();
+        outputs.push(yield context.df.callActivity("Hello", "Accepted approval"));
+    } else {
+        outputs.push(yield context.df.callActivity("Hello", "Timer fired"));
+    }
+
     return outputs;
 });
 
