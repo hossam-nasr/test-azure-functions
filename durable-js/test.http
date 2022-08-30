@@ -1,0 +1,2 @@
+// GET http://localhost:7071/api/counters/1
+GET http://localhost:7071/api/orchestrators/OrchestratorSignalEntity
